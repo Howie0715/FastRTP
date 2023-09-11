@@ -13,10 +13,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
@@ -66,7 +68,13 @@ public final class RandomTeleportCommand {
     }
 
     private static int execute(CommandSourceStack source) throws CommandSyntaxException {
-        return execute(source, source.getPlayerOrException());
+        ResourceKey<Level> playerLevel = source.getPlayerOrException().level().dimension();
+        if (playerLevel.equals(Level.OVERWORLD) || playerLevel.equals(Level.NETHER) || playerLevel.equals(Level.END)){
+            return execute(source, source.getPlayerOrException());
+        }else {
+            source.getPlayerOrException().sendSystemMessage(Component.literal("您無法在此維度隨機傳送"),true);
+            return 0;
+        }
     }
 
     private static int execute(CommandSourceStack source, ServerPlayer player) {
