@@ -3,7 +3,6 @@ package me.wesley1808.fastrtp.util;
 import eu.pb4.placeholders.api.TextParserUtils;
 import me.wesley1808.fastrtp.config.Config;
 import me.wesley1808.fastrtp.mixins.ServerChunkCacheAccessor;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -22,8 +22,8 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public final class Util {
@@ -83,7 +83,7 @@ public final class Util {
 
                     float distance = player.distanceTo(monster);
                     if (distance < 24 && monster.getSensing().hasLineOfSight(player)) {
-                        return String.format("Hunted by %s (%.0f blocks away)", BuiltInRegistries.ENTITY_TYPE.getKey(monster.getType()).getPath(), distance);
+                        return String.format("Hunted by %s (%.0f blocks away)", EntityType.getKey(monster.getType()).getPath(), distance);
                     }
                 }
             }
