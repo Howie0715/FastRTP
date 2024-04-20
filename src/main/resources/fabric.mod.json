@@ -8,7 +8,7 @@
     "Wesley1808"
   ],
   "license": "MIT",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "me.wesley1808.fastrtp.FastRTP"
