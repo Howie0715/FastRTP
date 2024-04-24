@@ -162,7 +162,7 @@ public final class PositionLocator {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(centerX, y, centerZ);
         if (!this.isSafeBelowPlayer(chunk.getBlockState(mutable)) ||
             !this.isSafeSurroundingPlayer(chunk.getBlockState(mutable.move(Direction.UP))) ||
-            !this.level.noCollision(EntityType.PLAYER.getAABB(centerX + 0.5D, y + 1, centerZ + 0.5D))
+            !this.level.noCollision(EntityType.PLAYER.getSpawnAABB(centerX + 0.5D, y + 1, centerZ + 0.5D))
         ) {
             return false;
         }

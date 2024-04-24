@@ -31,7 +31,7 @@ public final class Util {
     @Nullable
     public static LevelChunk getChunkIfLoaded(ServerLevel level, int chunkX, int chunkZ) {
         final ChunkHolder holder = getChunkHolder(level.getChunkSource(), chunkX, chunkZ);
-        return holder != null ? holder.getFullChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left().orElse(null) : null;
+        return holder != null ? holder.getFullChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).orElse(null) : null;
     }
 
     @Nullable
