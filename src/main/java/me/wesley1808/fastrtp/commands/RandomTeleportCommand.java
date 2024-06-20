@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import me.wesley1808.fastrtp.config.Config;
 import me.wesley1808.fastrtp.config.ConfigHandler;
 import me.wesley1808.fastrtp.util.*;
@@ -38,16 +39,16 @@ public final class RandomTeleportCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(literal("rtp")
-                .requires(src -> !Config.instance().requirePermission || Permission.check(src, Permission.COMMAND_RTP, 2))
+                .requires(src -> !Config.instance().requirePermission || Permissions.check(src, Permission.COMMAND_RTP, 2))
                 .executes(ctx -> execute(ctx.getSource()))
 
                 .then(literal("reload")
-                        .requires(Permission.require(Permission.COMMAND_RELOAD, 2))
+                        .requires(Permissions.require(Permission.COMMAND_RELOAD, 2))
                         .executes(ctx -> reloadConfig(ctx.getSource()))
                 )
 
                 .then(argument("player", player())
-                        .requires(Permission.require(Permission.COMMAND_RTP_ADVANCED, 2))
+                        .requires(Permissions.require(Permission.COMMAND_RTP_ADVANCED, 2))
                         .executes(ctx -> execute(ctx.getSource(), getPlayer(ctx, "player")))
 
                         .then(argument("world", dimension())
@@ -64,7 +65,10 @@ public final class RandomTeleportCommand {
                 )
         );
 
-        dispatcher.register(literal("rtpback").executes(ctx -> executeBack(ctx.getSource().getPlayerOrException())));
+        dispatcher.register(literal("rtpback")
+                .requires(Permissions.require(Permission.COMMAND_RTP_BACK, true))
+                .executes(ctx -> executeBack(ctx.getSource().getPlayerOrException()))
+        );
     }
 
     private static int execute(CommandSourceStack source) throws CommandSyntaxException {

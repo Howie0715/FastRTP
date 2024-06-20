@@ -10,6 +10,7 @@ A fast random teleport command that doesn't cause lagspikes.
 
 ### Permissions
 - `fast-rtp.command.root` - Allows the player to use the `/rtp` command when `requirePermission` is set to `true`.
+- `fast-rtp.command.back` - Allows the player to use the `/rtpback` command.
 - `fast-rtp.command.advanced` - Allows you to rtp other players, specify dimension, radius, etc.
 - `fast-rtp.command.reload` - Reloads the configuration.
 - `fast-rtp.bypass.cooldown` - Allows the player to bypass the RTP cooldown.

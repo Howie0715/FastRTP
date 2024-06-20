@@ -21,7 +21,7 @@ public class Json {
         @Override
         public TagKey<Biome> deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             if (element.isJsonPrimitive()) {
-                ResourceLocation location = new ResourceLocation(element.getAsString());
+                ResourceLocation location = ResourceLocation.parse(element.getAsString());
                 return TagKey.create(Registries.BIOME, location);
             }
             return null;
@@ -36,7 +36,7 @@ public class Json {
     private static class BiomeKeySerializer implements JsonDeserializer<ResourceKey<Biome>>, JsonSerializer<ResourceKey<Biome>> {
         public ResourceKey<Biome> deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
             if (element.isJsonPrimitive()) {
-                ResourceLocation location = new ResourceLocation(element.getAsString());
+                ResourceLocation location = ResourceLocation.parse(element.getAsString());
                 return ResourceKey.create(Registries.BIOME, location);
             }
             return null;

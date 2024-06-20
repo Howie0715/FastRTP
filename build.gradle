@@ -38,7 +38,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     // noinspection all
-    it.options.release = 17
+    it.options.release = 21
     it.options.encoding = "UTF-8"
 }
 
